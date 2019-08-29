@@ -19,9 +19,8 @@ export default {
                 loader: 'babel-loader'
             }
         },
-        {
-          test: /\.css$/,
-          loaders: ['style','css']
+        { test: /\.css$/,
+          use: ['style-loader', 'css-loader']
         }
     ]
 }
