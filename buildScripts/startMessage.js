@@ -1,3 +1,5 @@
-import { green } from 'chalk';
+import chalk from 'chalk';
 
-console.log(green('Starting app in dev mode...'));
+/*eslint-disable no-console */
+
+console.log(chalk.green('Starting app in dev mode...'));
