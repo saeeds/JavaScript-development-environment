@@ -2,8 +2,7 @@ import webpack from 'webpack';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 export default {
   debug: true,
   devtool: 'source-map',
@@ -20,7 +19,13 @@ export default {
   },
   plugins: [
     // Generate an external css file with a hash in the filename
-    new ExtractTextPlugin('[name].[contenthash].css'),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // all options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
+    }),
 
     // Hash the files using MD5 so that their names change when the content changes.
     new WebpackMd5Hash(),
@@ -61,7 +66,7 @@ export default {
   module: {
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
-      {test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap')}
+      {test: /\.css$/, loader: MiniCssExtractPlugin.extract('css?sourceMap')}
     ]
   }
 };
